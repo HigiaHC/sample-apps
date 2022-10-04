@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Button } from "../components/button";
 import { Header } from "../components/header";
@@ -9,6 +10,7 @@ import { usePopup } from "../contexts/popup";
 import api from "../services/api";
 
 export const Patients = () => {
+  const navigate = useNavigate();
   const [patients, setPatients] = useState([]);
   const [reason, setReason] = useState("");
   const { showPopup, handleHide } = usePopup();
@@ -33,6 +35,7 @@ export const Patients = () => {
       localStorage.setItem(id, `${response.data.id}:${response.data.key}`);
     });
     alert('Request sent to patient!');
+    navigate(`/start-appointment/${id}`);
   }, [reason])
 
   const openPopup = useCallback(async (id, from) => {
