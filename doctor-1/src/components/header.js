@@ -9,14 +9,14 @@ export const Header = ({ name }) => {
   return (
     <Wrapper>
       <Center>
-        <Logo src={require('../assets/logo.png').default} onClick={() => navigate('/resources')}></Logo>
+        <Logo src={require('../assets/inverted-logo.png').default} onClick={() => navigate('/patients')}></Logo>
         <Menu>
           <MenuItem>
             <MenuIcon src={require('../assets/login.png').default}></MenuIcon>
-            {name}
+            Dr. Ricardo
           </MenuItem>
-          <Button fullWidth={false} onClick={() => navigate('/requests')}>Sharing Requests</Button>
-          <Button fullWidth={false} onClick={() => navigate('/resource-requests')}>Resource Requests</Button>
+          {/* <Button fullWidth={false} onClick={() => navigate('/requests')}>Sharing Requests</Button> */}
+          {/* <Button fullWidth={false} onClick={() => navigate('/resource-requests')}>Resource Requests</Button> */}
         </Menu>
       </Center>
     </Wrapper>
@@ -65,6 +65,8 @@ const MenuItem = styled.div`
   font-weight: 300;
   font-size: 16px;
   line-height: 19px;
+
+  color: #FFF;
 `
 
 const MenuIcon = styled.img``

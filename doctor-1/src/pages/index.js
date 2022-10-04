@@ -10,7 +10,8 @@ export const Homepage = () => {
     <Wrapper>
       <Title>
         <Welcome>Bem-vindo à plataforma</Welcome>
-        <Logo src={require('../assets/logo.png').default}></Logo>
+        <Welcome>Basic Healthcare</Welcome>
+        <Logo src={require('../assets/logo.png').default} width="300px"></Logo>
       </Title>
       <LoginOptions>
         <Option>
