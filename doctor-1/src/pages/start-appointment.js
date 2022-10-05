@@ -44,7 +44,7 @@ export const StartAppointment = () => {
                 }
                 else {
                     localStorage.setItem(id, `${response.data.id}:${response.data.token}`);
-                    navigate('/appointment');
+                    navigate(`/appointment/${id}`);
                 }
             }
         }).catch(error => {

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, BrowserRouter, Routes as Switch } from 'react-router-dom';
+import { Appointment } from './pages/appointment';
 
 
 import { Homepage } from './pages/index';
@@ -12,6 +13,7 @@ export const Routes = () => (
             <Route path="/" element={<Homepage />} />
             <Route path="/patients" element={<Patients />} />
             <Route path="/start-appointment/:address" element={<StartAppointment />} />
+            <Route path="/appointment/:address" element={<Appointment />} />
         </Switch>
     </BrowserRouter>
 );
