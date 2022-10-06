@@ -43,20 +43,25 @@ export const Appointment = () => {
         })
     }
 
+    const finishAppointment = async () => {
+        localStorage.removeItem(address);
+        navigate('/patients');
+    }
+
     return (
         <>
             <Header></Header>
             <Wrapper>
                 <Center>
                     <Actions>
-                        <Input img={require('../assets/search.png').default} placeholder="Search..."></Input>
+                        <Button fullWidth={false} onClick={() => finishAppointment()}>Finish Appointment</Button>
                         <Button fullWidth={false} onClick={() => navigate('/new')}>Create Resource</Button>
                     </Actions>
                     <List>
                         {references.map(reference =>
                             <ListItem
                                 key={reference.id}
-                                // onClick={() => (loadResource(reference.resourceType, reference.id))}
+                                onClick={() => (navigate(`/resource/${address}/${reference.type}/${reference.id}`))}
                                 side={`Date: ${reference.date}`}
                                 title={reference.description}
                                 subtitle={`Type: ${reference.type}`}></ListItem>

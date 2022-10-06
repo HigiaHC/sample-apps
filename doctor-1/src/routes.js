@@ -5,6 +5,7 @@ import { Appointment } from './pages/appointment';
 
 import { Homepage } from './pages/index';
 import { Patients } from './pages/patients';
+import { Resource } from './pages/resource';
 import { StartAppointment } from './pages/start-appointment';
 
 export const Routes = () => (
@@ -14,6 +15,7 @@ export const Routes = () => (
             <Route path="/patients" element={<Patients />} />
             <Route path="/start-appointment/:address" element={<StartAppointment />} />
             <Route path="/appointment/:address" element={<Appointment />} />
+            <Route path="/resource/:patient/:type/:id" element={<Resource />} />
         </Switch>
     </BrowserRouter>
 );
