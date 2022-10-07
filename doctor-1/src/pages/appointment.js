@@ -55,7 +55,7 @@ export const Appointment = () => {
                 <Center>
                     <Actions>
                         <Button fullWidth={false} onClick={() => finishAppointment()}>Finish Appointment</Button>
-                        <Button fullWidth={false} onClick={() => navigate('/new')}>Create Resource</Button>
+                        <Button fullWidth={false} onClick={() => navigate(`/new/${address}`)}>Create Resource</Button>
                     </Actions>
                     <List>
                         {references.map(reference =>
