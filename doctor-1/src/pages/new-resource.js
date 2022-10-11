@@ -68,6 +68,23 @@ export const NewResource = () => {
         });
         break;
 
+      case 'diagnostic':
+        console.log(`dfasdfasdf`);
+        api.post(`resources`, {
+          patient: address,
+          description: formData.name,
+          type: formData.type,
+          fields: diagnosticData,
+          from: 'Dr. Ricardo'
+        }).then(response => {
+          alert('Resource request was sent to the patient!');
+          navigate(`/appointment/${address}`);
+        }).catch(error => {
+          alert('Something went wrong, try again');
+          navigate(`/appointment/${address}`);
+        });
+        break;
+
       default:
         alert('resource type not defined');
         break;
