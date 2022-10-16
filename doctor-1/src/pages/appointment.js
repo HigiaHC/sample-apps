@@ -15,6 +15,7 @@ export const Appointment = () => {
     const [requestId, setRequestId] = useState('');
     const [requestToken, setRequestToken] = useState('');
     const [references, setReferences] = useState([]);
+    const [patientId, setPatientId] = useState('');
 
     useEffect(() => {
         let id = window.location.pathname.split('/')[2];
@@ -39,6 +40,7 @@ export const Appointment = () => {
             }
         }).then(response => {
             console.log(response);
+            setPatientId(response.data[0].id);
             setReferences(response.data);
         })
     }
@@ -55,7 +57,7 @@ export const Appointment = () => {
                 <Center>
                     <Actions>
                         <Button fullWidth={false} onClick={() => finishAppointment()}>Finish Appointment</Button>
-                        <Button fullWidth={false} onClick={() => navigate(`/new/${address}`)}>Create Resource</Button>
+                        <Button fullWidth={false} onClick={() => navigate(`/new/${address}`, {state: {patientId: patientId}})}>Create Resource</Button>
                     </Actions>
                     <List>
                         {references.map(reference =>
