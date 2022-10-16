@@ -24,9 +24,14 @@ export const NewResource = () => {
     code: {
       text: ""
     },
-    subject: "",
+    performer: {
+      display: ""
+    },
+    subject: {
+      reference: ""
+    },
     issued: "",
-    result: "",
+    result: [{reference: ""}],
     conclusion: "",
   })
 
@@ -63,7 +68,7 @@ export const NewResource = () => {
     },
     issued: "",
     intent: "order",
-    note: "",
+    note: [{text: ""}],
     dosageInstruction: "",
     dispenserequest: {
       validityPeriod: {
@@ -114,9 +119,10 @@ export const NewResource = () => {
         });
         break;
       case'diagnosticreport':
-        diagnosticData.subject = `Patient/${location.state.patientId}`;
+        diagnosticData.subject.reference = `Patient/${location.state.patientId}`;
         diagnosticData.issued = new Date().toISOString().slice(0, 18);
         diagnosticData.performer.display = 'Dr. Ricardo';
+        diagnosticData.result[0].reference = `Observation/${diagnosticData.result[0].reference}`
 
         api.post(`resources`, {
           patient: address,
@@ -173,7 +179,7 @@ export const NewResource = () => {
           <hr></hr>
           {formData.type === 'DiagnosticReport' && <>
             <Input placeholder="Procedure" value={diagnosticData.code.text} onChange={(e) => setDiagnosticData(prev => ({ ...prev, code: { text: e } }))}></Input>
-            <Input placeholder="Observation ID" value={diagnosticData.result} onChange={(e) => setDiagnosticData(prev => ({ ...prev, result: e }))}></Input>
+            <Input placeholder="Observation ID" value={diagnosticData.result[0].reference} onChange={(e) => setDiagnosticData(prev => ({ ...prev, result: [{reference: e}] }))}></Input>
             <Input placeholder="Conclusion" value={diagnosticData.conclusion} onChange={(e) => setDiagnosticData(prev => ({ ...prev, conclusion: e }))}></Input>
           </>}
           {formData.type === 'Observation' && <>
