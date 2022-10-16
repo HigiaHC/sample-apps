@@ -53,13 +53,15 @@ export const NewResource = () => {
   })
 
   const [medicationData, setMedicationData] = useState({
-    medication: {
-      concept: {
-        coding: {
-          display: ""
+    contained: [
+      {
+        code: {
+          coding: [
+            {display: ""}
+          ]
         }
       }
-    },
+    ],
     requester: {
       display: ""
     },
@@ -69,8 +71,10 @@ export const NewResource = () => {
     issued: "",
     intent: "order",
     note: [{text: ""}],
-    dosageInstruction: "",
-    dispenserequest: {
+    dosageInstruction: [
+      {text: ""}
+    ],
+    dispenseRequest: {
       validityPeriod: {
         start: "",
         end: ""
@@ -139,10 +143,20 @@ export const NewResource = () => {
         });
         
         break;
-      case'diagnosticreport':
-        medicationData.subject = location.state.patientId;
+      case'medicationrequest':
+        medicationData.subject.reference = `Patient/${location.state.patientId}`;
         medicationData.issued = new Date().toISOString().slice(0, 18);
         medicationData.requester.display = 'Dr. Ricardo';
+
+        let formattedDate = endDate.split('/');
+        formattedDate = `${formattedDate[2]}-${formattedDate[1]}-${formattedDate[0]}`
+
+        medicationData.dispenseRequest = {
+          validityPeriod: {
+            start: medicationData.issued,
+            end: (new Date(formattedDate)).toISOString()
+          }
+        }
 
         api.post(`resources`, {
           patient: address,
@@ -157,6 +171,7 @@ export const NewResource = () => {
           alert('Something went wrong, try again');
           navigate(`/appointment/${address}`);
         });
+        break;
       default:
         alert('resource type not defined');
         break;
@@ -188,9 +203,9 @@ export const NewResource = () => {
             <Input placeholder="Interpretation" value={observationData.interpretation.text} onChange={(e) => setObservationData(prev => ({ ...prev, interpretation: {text: e} }))}></Input>
           </>}
           {formData.type === 'MedicationRequest' && <>
-            <Input placeholder="Medication" value={medicationData.medication.concept.coding.display} onChange={(e) => setMedicationData(prev => ({ ...prev, medication: { concept: { coding: { display: e } } } }))}></Input>
+            <Input placeholder="Medication" value={medicationData.contained[0].code.coding[0].display} onChange={(e) => setMedicationData(prev => ({ ...prev, contained: [{resourceType: "Medication", code: {coding : [{display: e}]}}] }))}></Input>
             <Input placeholder="Note" value={medicationData.note[0].text} onChange={(e) => setMedicationData(prev => ({ ...prev, note: [{text: e}] }))}></Input>
-            <Input placeholder="Dosage Instruction" value={medicationData.dosageInstruction} onChange={(e) => setMedicationData(prev => ({ ...prev, dosageInstruction: e }))}></Input>
+            <Input placeholder="Dosage Instruction" value={medicationData.dosageInstruction[0].text} onChange={(e) => setMedicationData(prev => ({ ...prev, dosageInstruction: [{text: e}] }))}></Input>
             <Input placeholder="Validity Date" value={endDate} onChange={(e) => setEndDate(e)} mask={dateMask}></Input>
             <Input placeholder="Quantity (ml)" value={medicationData.quantity.value} onChange={(e) => setMedicationData(prev => ({ ...prev, quantity: {value: e}}))}></Input>
           </>}
