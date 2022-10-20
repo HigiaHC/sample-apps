@@ -68,6 +68,7 @@ export const NewResource = () => {
     subject: {
       reference: ""
     },
+    status: "active",
     issued: "",
     intent: "order",
     note: [{text: ""}],
