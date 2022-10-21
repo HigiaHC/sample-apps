@@ -9,8 +9,8 @@ export const Homepage = () => {
   return (
     <Wrapper>
       <Title>
-        <Welcome>Bem-vindo à plataforma</Welcome>
-        <Welcome>Basic Healthcare</Welcome>
+        <Welcome>Sistema</Welcome>
+        <Welcome>Ipsum Pharma</Welcome>
         <Logo src={require('../assets/logo.png').default} width="300px"></Logo>
       </Title>
       <LoginOptions>

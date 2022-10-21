@@ -30,7 +30,8 @@ export const Resource = () => {
   }, []);
 
   const updateMedicationRequest = async (id, token) => {
-    await api.put(`resources`, {
+    content.status = "complete";
+    await api.put(`resources/${params.patient}/${params.type}/${params.id}`, {
       patient: params.patient,
       description: '',
       type: params.type,
@@ -49,7 +50,11 @@ export const Resource = () => {
         <Center>
           <Actions>
             <Button fullWidth={false} onClick={() => navigate(`/appointment/${params.patient}`)}>Back to appointment</Button>
-            <Button fullWidth={false} onClick={() => console.log('send update')}>Confirm Checkout</Button>
+            {
+              (content && content.status !== "complete")
+              ?<Button fullWidth={false} onClick={() => updateMedicationRequest()}>Confirm Checkout</Button>
+              :null
+            }
           </Actions>
           <ReactJson src={content} theme="monokai" style={{ padding: 16, borderRadius: 8, maxHeight: 640, overflowY: 'auto' }} />
         </Center>
